@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jmn - Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a1b9a; /* Purple */
+            --secondary-color: #ffab40; /* Orange */
+            --dark-bg: #121212;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            flex-direction: column;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .minecraft-logo {
+            width: 150px;
+            height: 150px;
+            background: url('https://cdn.discordapp.com/attachments/1274395202609479753/1335153037420920843/removed-bg-1738395689818.png') center/contain no-repeat;
+            margin: 0 auto 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .company-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: url('https://images-ext-1.discordapp.net/external/gcH7P4borBPbtaFTc4VXlccAkYMrhvhxtgNW71zFHik/https/cdn.discordapp.com/icons/1258323521344639056/63160b4bb621f27446e1ffcfce3b76d9.png') center/cover;
+        }
+
+        .company-text {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-text {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        .name-highlight {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 5rem;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px var(--primary-color),
+                           0 0 20px var(--primary-color),
+                           0 0 30px var(--primary-color);
+            }
+            to {
+                text-shadow: 0 0 20px var(--primary-color),
+                           0 0 30px var(--primary-color),
+                           0 0 40px var(--primary-color);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .social-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--dark-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-content img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .skills-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, #000814, #001233);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .skill-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .projects-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, #001233, #000814);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .contact-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, #000814, #001233);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 3rem;
+            }
+            .name-highlight {
+                font-size: 3.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .minecraft-logo {
+                width: 100px;
+                height: 100px;
+            }
+            .skill-card {
+                padding: 1.5rem;
+            }
+            .skill-card h3 {
+                font-size: 1.3rem;
+            }
+            .skill-card p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <header>
+            <div class="logo-container">
+                <div class="minecraft-logo"></div>
+                <div class="company-info" onclick="window.location.href='https://discord.gg/U485Yncxcc';">
+                    <div class="company-logo"></div>
+                    <span class="company-text">Co-Owner Of LunarDevsTM</span>
+                </div>
+            </div>
+            <div>
+                <h1 class="hero-text">I'm <span class="name-highlight">Jmn</span></h1>
+                <p class="subtitle">UI Designer, Community Manager & Idea Stormer</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" id="discord-icon"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </header>
+
+        <div id="profile-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <img src="https://media.discordapp.net/attachments/1140170442951360534/1335166927794081883/865157753d9f117ce85c66adfa438553.jpg?ex=679f2e99&is=679ddd19&hm=47edca4485297df8e04c26c0b6a9b097bb4c82c7ba14aba8d62c9f63964bfed6&=&format=webp&width=620&height=620" alt="Profile Picture">
+                <h3>Jmn</h3>
+                <p>UI Designer, Community Manager & Idea Stormer</p>
+            </div>
+        </div>
+
+        <section class="skills-section">
+            <h2 class="section-title">My Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-palette"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>I specialize in creating visually appealing and user-friendly interfaces that enhance user experience and engagement. My designs are intuitive, modern, and tailored to meet client needs.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-users"></i></div>
+                    <h3>Community Management</h3>
+                    <p>With a focus on fostering positive and inclusive environments, I manage and moderate communities to ensure smooth communication, engagement, and growth.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Idea Storming</h3>
+                    <p>I thrive in brainstorming sessions, generating innovative ideas and strategies to solve problems and drive projects forward. My creativity helps bring fresh perspectives to the table.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-section">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>LunarDevs Community Management</h3>
+                    <p>Successfully managed and moderated the LunarDevs community, ensuring a positive and engaging environment for all members.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>UI Design for Discord Bots</h3>
+                    <p>Designed intuitive and visually appealing interfaces for Discord bots, enhancing user interaction and experience.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Idea Storming for Startups</h3>
+                    <p>Collaborated with startups to brainstorm and develop innovative ideas, helping them stand out in competitive markets.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2 class="section-title">Let's Work Together</h2>
+            <p>Looking for a creative and experienced professional to elevate your project? Let's collaborate and create something extraordinary.</p>
+            <a href="https://discord.gg/U485Yncxcc" class="contact-btn">Get In Touch</a>
+        </section>
+    </div>
+
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#6a1b9a'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#6a1b9a',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('profile-modal');
+        const discordIcon = document.getElementById('discord-icon');
+        const closeBtn = document.querySelector('.close');
+
+        discordIcon.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
